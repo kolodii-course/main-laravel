@@ -65,7 +65,12 @@ class PostsController extends Controller
 	 */
 	public function edit(string $id)
 	{
-		//
+		$post = Post::find($id);
+
+		return view('posts/edit', [
+			'header' => 'Edit post',
+			'post' => $post
+		]);
 	}
 
 	/**
@@ -82,9 +87,7 @@ class PostsController extends Controller
 		$post->fill($validated);
 		$post->save();
 
-		$post = Post($request->all());
-
-		$post->save();
+		return redirect('/posts/' . $id);
 	}
 
 	/**

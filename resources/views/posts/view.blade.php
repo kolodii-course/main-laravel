@@ -23,7 +23,7 @@
 				</form>
 
 				<div>
-					<a class="text-blue-500 hover:underline" href="/post/edit?id=<?= $post['id'] ?>">Edit</a>
+					<a class="text-blue-500 hover:underline" href="/posts/{{ $post['id'] }}/edit">Edit</a>
 				</div>
 			</footer>
 		</article>
