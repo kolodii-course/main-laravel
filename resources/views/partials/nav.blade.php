@@ -8,13 +8,13 @@
 				<div class="hidden md:block">
 					<div class="ml-10 flex items-baseline space-x-4">
 						<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-						<a href="/" class="<?= (url() === '/' ? 'bg-gray-900 text-white' : 'text-gray-300') ?> rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Dashboard</a>
+						<a href="/" class="<?= (request()->path() === '/' ? 'bg-gray-900 text-white' : 'text-gray-300') ?> rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Dashboard</a>
 
-						<a href="/posts" class="<?= (url() === '/posts' ? 'bg-gray-900 text-white' : 'text-gray-300') ?> rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Posts</a>
+						<a href="/posts" class="<?= (request()->path() === 'posts' ? 'bg-gray-900 text-white' : 'text-gray-300') ?> rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Posts</a>
 
-						<a href="/about" class="<?= (url() === '/about' ? 'bg-gray-900 text-white' : 'text-gray-300') ?> hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">About</a>
+						<a href="/about" class="<?= (request()->path() === 'about' ? 'bg-gray-900 text-white' : 'text-gray-300') ?> hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">About</a>
 
-						<a href="/contact" class="<?= (url() === '/contact' ? 'bg-gray-900 text-white' : 'text-gray-300') ?> hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Contact</a>
+						<a href="/contact" class="<?= (request()->path() === 'contact' ? 'bg-gray-900 text-white' : 'text-gray-300') ?> hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Contact</a>
 					</div>
 				</div>
 			</div>
@@ -49,13 +49,17 @@
 						<div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
 							<!-- Active: "bg-gray-100", Not Active: "" -->
 
-							<?php if (auth()): ?>
-								<div class="pl-4"><small><?= auth()->id() ?></small></div>
-								<a href="/logout" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Log out</a>
-							<?php else: ?>
+							@if(auth()->user())
+								<div class="pl-4"><small><?= auth()->user()->email ?></small></div>
+
+								<form action="/logout" method="POST">
+									@csrf
+									<button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2" type="submit">Log out</button>
+								</form>
+							@else
 								<a href="/register" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Register</a>
-								<a href="/signin" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Log in</a>
-							<?php endif;?>
+								<a href="/login" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Log in</a>
+							@endif
 						</div>
 					</div>
 				</div>

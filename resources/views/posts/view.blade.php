@@ -18,7 +18,7 @@
 			<footer class="mt-10">
 				<form action="/posts/{{ $post['id'] }}" method="POST">
 					@csrf
-					<input type="hidden" name="_method" value="DELETE">
+					@method('DELETE')
 					<button class="text-red-500 hover:underline" type="submit">Delete post</button>
 				</form>
 

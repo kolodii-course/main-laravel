@@ -14,22 +14,19 @@
 						<form action="/posts" method="POST">
 							@csrf
 
-							@if ($errors->any())
-								<div class="alert alert-danger">
-										@foreach ($errors->all() as $error)
-											<span class="text-red-500 text-xs">{{ $error }}</span>
-										@endforeach
-								</div>
-							@endif
-
-
 							<div class="overflow-hidden shadow sm:rounded-md">
 								<div class="bg-white px-4 py-5 sm:p-6">
 									<div>
 										<div>
 											<label for="title" class="block text-sm font-medium leading-6 text-gray-900">Post title</label>
-											<input value="<?= $post_data['title'] ??  '' ?>" type="text" name="title" id="title" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+											<input value="{{ old('title') }}" type="text" name="title" id="title" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
 										</div>
+
+										@error('title')
+											<div>
+												<span class="text-red-500 text-xs">{{ $message }}</span>
+											</div>
+										@enderror
 									</div>
 
 									<div class="mt-10">
@@ -38,14 +35,14 @@
 											  class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 											  id="description"
 											  cols="30"
-											  rows="10"><?= $post_data['text'] ??  '' ?></textarea>
+											  rows="10">{{ old('text') }}</textarea>
 									</div>
 
-{{--									<?php if (isset($errors['text'])) : ?>--}}
-{{--										<div>--}}
-{{--											<span class="text-red-500 text-xs"><?= $errors['text'] ?></span>--}}
-{{--										</div>--}}
-{{--									<?php endif; ?>--}}
+									@error('text')
+										<div>
+											<span class="text-red-500 text-xs">{{ $message }}</span>
+										</div>
+									@enderror
 								</div>
 								<div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
 									<button type="submit" class="inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Create</button>
